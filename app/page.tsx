@@ -36,7 +36,7 @@ function WindguruWidget({ spotId }: { spotId: number }) {
     const uid = `wg_fwdg_${spotId}_${Date.now()}`;
     const args = [
       `s=${spotId}`, `m=3`, `uid=${uid}`, `wj=kmh`, `tj=c`, `odession=true`,
-      `p=WINDSPD,GUST,SMER,TMPE,WAVES,WVDIR,WVPER`, `b=2`, `hc=#333`,
+      `p=WINDSPD,GUST,SMER,WAVES,WVPER,WVDIR,TMPE,CDC,APCP1s,RATING`, `b=2`, `hc=#333`,
       `dc=gray`, `tc=#333`, `stl=`, `lng=en`, `wl=`, `session=true`,
     ];
 
@@ -50,7 +50,7 @@ function WindguruWidget({ spotId }: { spotId: number }) {
     return () => { container.innerHTML = ""; };
   }, [spotId, containerId]);
 
-  return <div id={containerId} className="p-2 min-h-[350px] overflow-x-auto bg-gray-50 flex items-center justify-center font-semibold text-gray-400">Loading Windguru...</div>;
+  return <div id={containerId} className="flex min-h-[350px] items-center justify-center overflow-x-auto bg-slate-50/80 p-2 font-semibold text-slate-400">Loading Windguru...</div>;
 }
 
 /* ── main component ── */
@@ -151,82 +151,82 @@ export default function Dashboard() {
   }
 
   if (loading) return (
-    <div className="flex items-center justify-center h-64">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+    <div className="flex h-64 items-center justify-center">
+      <div className="h-9 w-9 animate-spin rounded-full border-2 border-[var(--ck-accent-soft)] border-t-[var(--ck-accent)]"></div>
     </div>
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header */}
-      <div>
-        <h2 className="text-2xl font-bold">📊 Dashboard</h2>
-        <p className="text-gray-500 text-sm">
+      <div className="ui-surface border-transparent bg-white/70 p-5 md:p-6">
+        <h2 className="ui-title-lg">📊 Dashboard</h2>
+        <p className="mt-1 text-sm ui-text-muted">
           {new Date().toLocaleDateString("en-ZA", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
         </p>
       </div>
 
       {/* ── Action Items ── */}
       <div>
-        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">Action Items</h3>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <h3 className="ui-section-title mb-3">Action Items</h3>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {/* Refunds */}
           <Link href="/refunds" className="block">
-            <div className={`bg-white rounded-xl p-4 border-2 transition-all hover:shadow-md ${refundCount > 0 ? "border-red-200 hover:border-red-300" : "border-gray-100"}`}>
-              <div className="flex items-center justify-between mb-2">
+            <div className={`ui-surface p-4 md:p-5 hover:-translate-y-0.5 hover:shadow-[var(--ck-shadow-md)] ${refundCount > 0 ? "border-red-200 hover:border-red-300" : "hover:border-[var(--ck-border-strong)]"}`}>
+              <div className="mb-2 flex items-center justify-between">
                 <span className="text-2xl">💰</span>
-                {refundCount > 0 && <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse">{refundCount}</span>}
+                {refundCount > 0 && <span className="ui-pill animate-pulse bg-[var(--ck-danger)] text-white">{refundCount}</span>}
               </div>
-              <p className="text-sm font-medium text-gray-700">Pending Refunds</p>
+              <p className="ui-title-md">Pending Refunds</p>
               {refundCount > 0 ? (
-                <p className="text-lg font-bold text-red-600">R{refundTotal.toLocaleString()}</p>
+                <p className="text-lg font-semibold text-[var(--ck-danger)]">R{refundTotal.toLocaleString()}</p>
               ) : (
-                <p className="text-sm text-green-600 font-medium">All clear ✓</p>
+                <p className="text-sm font-medium text-[var(--ck-success)]">All clear ✓</p>
               )}
             </div>
           </Link>
 
           {/* Inbox */}
           <Link href="/inbox" className="block">
-            <div className={`bg-white rounded-xl p-4 border-2 transition-all hover:shadow-md ${inboxCount > 0 ? "border-orange-200 hover:border-orange-300" : "border-gray-100"}`}>
-              <div className="flex items-center justify-between mb-2">
+            <div className={`ui-surface p-4 md:p-5 hover:-translate-y-0.5 hover:shadow-[var(--ck-shadow-md)] ${inboxCount > 0 ? "border-amber-200 hover:border-amber-300" : "hover:border-[var(--ck-border-strong)]"}`}>
+              <div className="mb-2 flex items-center justify-between">
                 <span className="text-2xl">💬</span>
-                {inboxCount > 0 && <span className="bg-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse">{inboxCount}</span>}
+                {inboxCount > 0 && <span className="ui-pill animate-pulse bg-[var(--ck-warning)] text-white">{inboxCount}</span>}
               </div>
-              <p className="text-sm font-medium text-gray-700">Inbox Messages</p>
+              <p className="ui-title-md">Inbox Messages</p>
               {inboxCount > 0 ? (
-                <p className="text-lg font-bold text-orange-600">{inboxCount} awaiting</p>
+                <p className="text-lg font-semibold text-[var(--ck-warning)]">{inboxCount} awaiting</p>
               ) : (
-                <p className="text-sm text-green-600 font-medium">All clear ✓</p>
+                <p className="text-sm font-medium text-[var(--ck-success)]">All clear ✓</p>
               )}
             </div>
           </Link>
 
           {/* Photos */}
           <Link href="/photos" className="block">
-            <div className={`bg-white rounded-xl p-4 border-2 transition-all hover:shadow-md ${photosOutstanding > 0 ? "border-blue-200 hover:border-blue-300" : "border-gray-100"}`}>
-              <div className="flex items-center justify-between mb-2">
+            <div className={`ui-surface p-4 md:p-5 hover:-translate-y-0.5 hover:shadow-[var(--ck-shadow-md)] ${photosOutstanding > 0 ? "border-blue-200 hover:border-blue-300" : "hover:border-[var(--ck-border-strong)]"}`}>
+              <div className="mb-2 flex items-center justify-between">
                 <span className="text-2xl">📷</span>
-                {photosOutstanding > 0 && <span className="bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">{photosOutstanding}</span>}
+                {photosOutstanding > 0 && <span className="ui-pill bg-[var(--ck-accent)] text-white">{photosOutstanding}</span>}
               </div>
-              <p className="text-sm font-medium text-gray-700">Photos Outstanding</p>
+              <p className="ui-title-md">Photos Outstanding</p>
               {photosOutstanding > 0 ? (
-                <p className="text-lg font-bold text-blue-600">{photosOutstanding} trips</p>
+                <p className="text-lg font-semibold text-[var(--ck-accent)]">{photosOutstanding} trips</p>
               ) : (
-                <p className="text-sm text-green-600 font-medium">All sent ✓</p>
+                <p className="text-sm font-medium text-[var(--ck-success)]">All sent ✓</p>
               )}
             </div>
           </Link>
 
           {/* Today's Bookings */}
           <Link href="/bookings" className="block">
-            <div className="bg-white rounded-xl p-4 border-2 border-emerald-200 hover:border-emerald-300 transition-all hover:shadow-md">
-              <div className="flex items-center justify-between mb-2">
+            <div className="ui-surface border-emerald-200 p-4 md:p-5 hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-[var(--ck-shadow-md)]">
+              <div className="mb-2 flex items-center justify-between">
                 <span className="text-2xl">📋</span>
-                <span className="bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-0.5 rounded-full">{todayPax} pax</span>
+                <span className="ui-pill bg-emerald-100 text-emerald-700">{todayPax} pax</span>
               </div>
-              <p className="text-sm font-medium text-gray-700">Today&apos;s Bookings</p>
-              <p className="text-lg font-bold text-emerald-600">{todayBookings} trips · R{todayRevenue.toLocaleString()}</p>
+              <p className="ui-title-md">Today&apos;s Bookings</p>
+              <p className="text-lg font-semibold text-emerald-600">{todayBookings} trips · R{todayRevenue.toLocaleString()}</p>
             </div>
           </Link>
         </div>
@@ -237,10 +237,11 @@ export default function Dashboard() {
         ref={dragRef}
         style={dragPos ? { position: "fixed", left: dragPos.x, top: dragPos.y, zIndex: 50, width: "calc(100% - 16rem - 3rem)" } : undefined}
       >
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-3">
+        <div className="ui-surface-elevated p-4 md:p-5">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3">
             <h3
-              className="text-sm font-semibold text-gray-500 uppercase tracking-wider cursor-move select-none"
+              className="ui-section-title cursor-move select-none"
               onMouseDown={onMouseDown}
               title="Drag to reposition"
             >
@@ -248,84 +249,85 @@ export default function Dashboard() {
             </h3>
             <button
               onClick={() => setWeatherOpen(!weatherOpen)}
-              className="text-xs text-gray-400 hover:text-gray-600"
+              className="rounded-lg px-2 py-1 text-xs font-medium text-[var(--ck-text-muted)] hover:bg-[var(--ck-accent-soft)] hover:text-[var(--ck-text-strong)]"
             >
               {weatherOpen ? "▼ Collapse" : "▶ Expand"}
             </button>
+            </div>
+
+            {/* Location selector */}
+            <select
+              value={location.name}
+              onChange={(e) => {
+                const loc = LOCATIONS.find(l => l.name === e.target.value);
+                if (loc) setLocation(loc);
+              }}
+              className="ui-control min-w-[220px]"
+            >
+              {LOCATIONS.map(l => (
+                <option key={l.name} value={l.name}>{l.name}</option>
+              ))}
+            </select>
           </div>
 
-          {/* Location selector */}
-          <select
-            value={location.name}
-            onChange={(e) => {
-              const loc = LOCATIONS.find(l => l.name === e.target.value);
-              if (loc) setLocation(loc);
-            }}
-            className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {LOCATIONS.map(l => (
-              <option key={l.name} value={l.name}>{l.name}</option>
-            ))}
-          </select>
+          {weatherOpen && (
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+              {/* Windy */}
+              <div className="ui-surface overflow-hidden">
+                <div className="flex items-center justify-between border-b border-[var(--ck-border-subtle)] px-4 py-3">
+                  <span className="ui-title-md">🌊 Windy — {location.name}</span>
+                  <a href={`https://www.windy.com/${location.lat}/${location.lon}`} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-[var(--ck-accent)] hover:underline">Open ↗</a>
+                </div>
+                <iframe
+                  key={`windy-${location.lat}-${location.lon}`}
+                  src={`https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=mm&metricTemp=°C&metricWind=km/h&zoom=11&overlay=wind&product=ecmwf&level=surface&lat=${location.lat}&lon=${location.lon}&detailLat=${location.lat}&detailLon=${location.lon}&marker=true&message=true`}
+                  width="100%"
+                  height="350"
+                  frameBorder="0"
+                  className="w-full"
+                />
+              </div>
+
+              {/* Windguru */}
+              <div className="ui-surface overflow-hidden">
+                <div className="flex items-center justify-between border-b border-[var(--ck-border-subtle)] px-4 py-3">
+                  <span className="ui-title-md">🏄 Windguru — {location.name}</span>
+                  <a href={`https://www.windguru.cz/${location.wgSpot}`} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold text-[var(--ck-accent)] hover:underline">Open ↗</a>
+                </div>
+                <WindguruWidget key={`wg-${location.wgSpot}`} spotId={location.wgSpot} />
+              </div>
+            </div>
+          )}
         </div>
-
-        {weatherOpen && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {/* Windy */}
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-              <div className="p-3 border-b border-gray-100 flex items-center justify-between">
-                <span className="text-sm font-semibold text-gray-700">🌊 Windy — {location.name}</span>
-                <a href={`https://www.windy.com/${location.lat}/${location.lon}`} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500 hover:underline">Open ↗</a>
-              </div>
-              <iframe
-                key={`windy-${location.lat}-${location.lon}`}
-                src={`https://embed.windy.com/embed.html?type=map&location=coordinates&metricRain=mm&metricTemp=°C&metricWind=km/h&zoom=11&overlay=wind&product=ecmwf&level=surface&lat=${location.lat}&lon=${location.lon}&detailLat=${location.lat}&detailLon=${location.lon}&marker=true&message=true`}
-                width="100%"
-                height="350"
-                frameBorder="0"
-                className="w-full"
-              />
-            </div>
-
-            {/* Windguru */}
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-              <div className="p-3 border-b border-gray-100 flex items-center justify-between">
-                <span className="text-sm font-semibold text-gray-700">🏄 Windguru — {location.name}</span>
-                <a href={`https://www.windguru.cz/${location.wgSpot}`} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500 hover:underline">Open ↗</a>
-              </div>
-              <WindguruWidget key={`wg-${location.wgSpot}`} spotId={location.wgSpot} />
-            </div>
-          </div>
-        )}
       </div>
 
       {/* ── Today's Manifest ── */}
-      <div className="bg-white rounded-xl border border-gray-200">
-        <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-          <h3 className="font-semibold">Today&apos;s Manifest</h3>
-          <span className="text-xs text-gray-400">{manifest.length} bookings · {todayPax} pax</span>
+      <div className="ui-surface-elevated overflow-hidden">
+        <div className="flex items-center justify-between border-b border-[var(--ck-border-subtle)] p-4">
+          <h3 className="ui-title-md">Today&apos;s Manifest</h3>
+          <span className="text-xs ui-text-muted">{manifest.length} bookings · {todayPax} pax</span>
         </div>
         {manifest.length === 0 ? (
-          <p className="p-4 text-gray-500 text-sm">No bookings today.</p>
+          <p className="p-4 text-sm ui-text-muted">No bookings today.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-gray-50">
+              <thead className="bg-slate-50/80">
                 <tr>
-                  <th className="text-left p-3 font-medium text-gray-600">Time</th>
-                  <th className="text-left p-3 font-medium text-gray-600">Customer</th>
-                  <th className="text-left p-3 font-medium text-gray-600 hidden md:table-cell">Phone</th>
-                  <th className="text-left p-3 font-medium text-gray-600">Tour</th>
-                  <th className="text-left p-3 font-medium text-gray-600">Pax</th>
-                  <th className="text-left p-3 font-medium text-gray-600">Total</th>
+                  <th className="p-3 text-left font-medium ui-text-muted">Time</th>
+                  <th className="p-3 text-left font-medium ui-text-muted">Customer</th>
+                  <th className="hidden p-3 text-left font-medium ui-text-muted md:table-cell">Phone</th>
+                  <th className="p-3 text-left font-medium ui-text-muted">Tour</th>
+                  <th className="p-3 text-left font-medium ui-text-muted">Pax</th>
+                  <th className="p-3 text-left font-medium ui-text-muted">Total</th>
                 </tr>
               </thead>
               <tbody>
                 {manifest.map((b: any) => (
-                  <tr key={b.id} className="border-t border-gray-100 hover:bg-gray-50">
-                    <td className="p-3 font-medium text-blue-700">{b.slots?.start_time ? fmtTime(b.slots.start_time) : "—"}</td>
+                  <tr key={b.id} className="border-t border-[var(--ck-border-subtle)] hover:bg-slate-50/65">
+                    <td className="p-3 font-medium text-[var(--ck-accent)]">{b.slots?.start_time ? fmtTime(b.slots.start_time) : "—"}</td>
                     <td className="p-3">{b.customer_name}</td>
-                    <td className="p-3 text-gray-500 text-xs hidden md:table-cell">{b.phone}</td>
+                    <td className="hidden p-3 text-xs ui-text-muted md:table-cell">{b.phone}</td>
                     <td className="p-3">{b.tours?.name}</td>
                     <td className="p-3">{b.qty}</td>
                     <td className="p-3 font-medium">R{Number(b.total_amount).toLocaleString()}</td>

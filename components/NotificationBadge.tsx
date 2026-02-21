@@ -35,7 +35,7 @@ export default function NotificationBadge() {
     if (count === 0) return null;
 
     return (
-        <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] text-center ml-auto">
+        <span className="ml-auto min-w-[20px] rounded-full border border-white/35 bg-[var(--ck-danger)] px-1.5 py-0.5 text-center text-[10px] font-bold text-white shadow-sm">
             {count > 99 ? "99+" : count}
         </span>
     );

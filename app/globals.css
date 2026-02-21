@@ -2,8 +2,146 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+:root {
   color-scheme: light;
-  background: #f9fafb;
-  color: #111827;
+  --ck-bg: #f3f5f8;
+  --ck-bg-accent: #e6eef9;
+  --ck-surface: #ffffff;
+  --ck-surface-elevated: #ffffff;
+  --ck-border-subtle: #d7dde8;
+  --ck-border-strong: #b8c3d5;
+  --ck-text-strong: #182130;
+  --ck-text: #283345;
+  --ck-text-muted: #5d6c83;
+  --ck-accent: #0f5dd7;
+  --ck-accent-soft: #dce9ff;
+  --ck-success: #0c8a59;
+  --ck-success-soft: #daf5ea;
+  --ck-danger: #c13b3b;
+  --ck-danger-soft: #ffe3e3;
+  --ck-warning: #b8690d;
+  --ck-warning-soft: #fff0da;
+  --ck-sidebar: #101828;
+  --ck-sidebar-border: #2a3a54;
+  --ck-sidebar-text: #c8d4e7;
+  --ck-sidebar-muted: #8fa1bd;
+  --ck-sidebar-hover: #16243a;
+  --ck-radius-md: 12px;
+  --ck-radius-lg: 18px;
+  --ck-shadow-sm: 0 10px 24px rgba(15, 30, 54, 0.06);
+  --ck-shadow-md: 0 18px 42px rgba(15, 30, 54, 0.1);
+  --ck-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", "Avenir", "Segoe UI", "Helvetica Neue", sans-serif;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, color-mix(in srgb, var(--ck-bg-accent) 70%, white 30%), transparent 60%),
+    radial-gradient(1000px 640px at 90% -20%, color-mix(in srgb, var(--ck-bg-accent) 65%, white 35%), transparent 65%),
+    var(--ck-bg);
+  color: var(--ck-text);
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--ck-accent-soft);
+  color: var(--ck-text-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--ck-border-subtle);
+  }
+
+  a,
+  button,
+  input,
+  select,
+  textarea {
+    transition:
+      color 180ms var(--ck-ease),
+      background-color 180ms var(--ck-ease),
+      border-color 180ms var(--ck-ease),
+      box-shadow 180ms var(--ck-ease),
+      transform 180ms var(--ck-ease);
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--ck-accent) 65%, white 35%);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .ui-surface {
+    @apply rounded-2xl border;
+    background: var(--ck-surface);
+    box-shadow: var(--ck-shadow-sm);
+  }
+
+  .ui-surface-elevated {
+    @apply rounded-2xl border;
+    background: var(--ck-surface-elevated);
+    box-shadow: var(--ck-shadow-md);
+  }
+
+  .ui-section-title {
+    @apply text-xs font-semibold uppercase tracking-[0.16em];
+    color: var(--ck-text-muted);
+  }
+
+  .ui-title-lg {
+    @apply text-2xl md:text-3xl font-semibold tracking-tight;
+    color: var(--ck-text-strong);
+  }
+
+  .ui-title-md {
+    @apply text-sm md:text-base font-semibold;
+    color: var(--ck-text-strong);
+  }
+
+  .ui-text-muted {
+    color: var(--ck-text-muted);
+  }
+
+  .ui-control {
+    @apply border rounded-xl px-3 py-2 text-sm;
+    border-color: var(--ck-border-subtle);
+    background: var(--ck-surface);
+    color: var(--ck-text);
+  }
+
+  .ui-control:hover {
+    border-color: var(--ck-border-strong);
+  }
+
+  .ui-control:focus-visible {
+    border-color: color-mix(in srgb, var(--ck-accent) 55%, white 45%);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--ck-accent-soft) 75%, white 25%);
+  }
+
+  .ui-pill {
+    @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold;
+  }
 }

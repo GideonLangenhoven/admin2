@@ -40,17 +40,17 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
   if (checking) return null;
 
   if (!authed) return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white rounded-2xl border border-gray-200 p-8 w-full max-w-sm text-center">
-        <h1 className="text-xl font-bold mb-1">🛶 Cape Kayak Admin</h1>
-        <p className="text-sm text-gray-500 mb-6">Enter your password to continue</p>
+    <div className="flex min-h-screen items-center justify-center bg-[var(--ck-bg)] px-4">
+      <div className="ui-surface-elevated w-full max-w-sm p-8 text-center">
+        <h1 className="text-xl font-semibold tracking-tight text-[var(--ck-text-strong)] mb-1">🛶 Cape Kayak Admin</h1>
+        <p className="mb-6 text-sm ui-text-muted">Enter your password to continue</p>
         <input type="password" value={pass}
           onChange={e => { setPass(e.target.value); setError(false); }}
           onKeyDown={e => { if (e.key === "Enter") login(); }}
           placeholder="Password"
-          className={"w-full border rounded-lg px-4 py-3 text-sm mb-3 outline-none " + (error ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-gray-400")} />
-        {error && <p className="text-xs text-red-500 mb-3">Incorrect password</p>}
-        <button onClick={login} className="w-full bg-gray-900 text-white py-3 rounded-lg text-sm font-semibold hover:bg-gray-800">
+          className={"ui-control mb-3 w-full px-4 py-3 text-sm outline-none " + (error ? "border-[var(--ck-danger)] bg-[var(--ck-danger-soft)]" : "")} />
+        {error && <p className="mb-3 text-xs text-[var(--ck-danger)]">Incorrect password</p>}
+        <button onClick={login} className="w-full rounded-xl bg-[var(--ck-text-strong)] py-3 text-sm font-semibold text-white hover:-translate-y-0.5 hover:shadow-md active:translate-y-0">
           Sign In
         </button>
       </div>
@@ -60,7 +60,7 @@ export default function AuthGate({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <div className="fixed top-3 right-3 z-50">
-        <button onClick={logout} className="text-xs text-gray-400 hover:text-gray-600 bg-white border border-gray-200 rounded-lg px-3 py-1.5">
+        <button onClick={logout} className="ui-control px-3 py-1.5 text-xs font-medium text-[var(--ck-text-muted)] hover:text-[var(--ck-text-strong)]">
           Sign Out
         </button>
       </div>
